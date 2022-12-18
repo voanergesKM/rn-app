@@ -1,11 +1,13 @@
 import { StyleSheet, View, ImageBackground, Platform, KeyboardAvoidingView } from 'react-native';
+import { Login } from './src/screens/LoginScreen';
 import { Register } from './src/screens/RegisterScreen';
 
 export default function App() {
   return (
     <View style={styles.container}>
       <ImageBackground style={styles.image} source={require('./assets/images/mainBgImage.jpg')}>
-        <Register />
+        {/* <Register /> */}
+        <Login />
       </ImageBackground>
     </View>
   );
