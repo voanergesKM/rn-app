@@ -185,7 +185,7 @@ const styles = StyleSheet.create({
     flex: 1,
     // resizeMode: 'cover',
     justifyContent: 'flex-end',
-    fontSize: 16,
+    // fontSize: 16,
     // alignItems: 'center',
   },
 });

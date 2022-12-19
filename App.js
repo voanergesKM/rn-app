@@ -6,8 +6,8 @@ export default function App() {
   return (
     <View style={styles.container}>
       <ImageBackground style={styles.image} source={require('./assets/images/mainBgImage.jpg')}>
-        {/* <Register /> */}
-        <Login />
+        <Register />
+        {/* <Login /> */}
       </ImageBackground>
     </View>
   );

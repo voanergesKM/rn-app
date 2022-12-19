@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   StyleSheet,
   Text,
@@ -31,6 +31,14 @@ export const Register = () => {
     setIsKeyboardShown(false);
     Keyboard.dismiss();
   };
+
+  useEffect(() => {
+    Keyboard.addListener('keyboardDidHide', hideKeyboard);
+
+    return () => {
+      Keyboard.removeAllListeners('keyboardDidHide', hideKeyboard);
+    };
+  }, []);
 
   return (
     <TouchableWithoutFeedback onPress={hideKeyboard}>
