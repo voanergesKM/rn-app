@@ -87,7 +87,7 @@ export const Login = () => {
                 setFormData(initialState);
               }}
             >
-              <Text style={styles.btnText}>Sign In</Text>
+              <Text style={styles.btnText}>SIGN IN</Text>
             </TouchableOpacity>
           </View>
           {/* <View> */}
@@ -103,11 +103,8 @@ const styles = StyleSheet.create({
   formContainer: {
     position: 'relative',
     width: '100%',
-    // alignItems: 'center',
     justifyContent: 'center',
     paddingTop: 32,
-    // paddingBottom: 78,
-    // marginBottom: 78,
     backgroundColor: '#FFFFFF',
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
@@ -119,6 +116,8 @@ const styles = StyleSheet.create({
     color: '#212121',
     marginBottom: 33,
     textAlign: 'center',
+    fontFamily: 'Roboto-Regular',
+    fontWeight: '500',
   },
 
   avatar: {
@@ -138,7 +137,6 @@ const styles = StyleSheet.create({
   },
 
   form: {
-    // flexDirection: 'column',
     marginHorizontal: 16,
     marginBottom: 16,
   },
@@ -151,6 +149,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#212121',
     borderRadius: 8,
+    fontFamily: 'Roboto-Regular',
   },
 
   passContainer: {
@@ -174,18 +173,18 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     textAlign: 'center',
     fontSize: 16,
+    fontFamily: 'Roboto-Regular',
   },
 
   formText: {
     textAlign: 'center',
     color: '#1B4371',
+    fontFamily: 'Roboto-Regular',
+    fontSize: 16,
   },
 
   inner: {
     flex: 1,
-    // resizeMode: 'cover',
     justifyContent: 'flex-end',
-    // fontSize: 16,
-    // alignItems: 'center',
   },
 });
