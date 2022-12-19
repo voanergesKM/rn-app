@@ -1,15 +1,5 @@
 import { useEffect, useState } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  TextInput,
-  Dimensions,
-  KeyboardAvoidingView,
-  Keyboard,
-  TouchableWithoutFeedback,
-} from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, TextInput, Keyboard } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const initialState = {
@@ -18,17 +8,16 @@ const initialState = {
   password: '',
 };
 
-export const Login = () => {
+export const Login = ({ isKeyboardShown, toggleKeyboard }) => {
   const [secure, setSecure] = useState(true);
-  const [isKeyboardShown, setIsKeyboardShown] = useState(false);
   const [formData, setFormData] = useState(initialState);
 
   const isShowedKeyboard = () => {
-    setIsKeyboardShown(true);
+    toggleKeyboard(true);
   };
 
   const hideKeyboard = () => {
-    setIsKeyboardShown(false);
+    toggleKeyboard(false);
     Keyboard.dismiss();
   };
 
@@ -41,61 +30,49 @@ export const Login = () => {
   }, []);
 
   return (
-    <TouchableWithoutFeedback onPress={hideKeyboard}>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={styles.inner}
-      >
-        <View style={{ ...styles.formContainer, paddingBottom: isKeyboardShown ? 20 : 78 }}>
-          <Text style={styles.formTitle}>Sign In</Text>
-          <View style={styles.form}>
-            <View style={{ marginBottom: 16 }}>
-              <TextInput
-                style={styles.input}
-                placeholder="E-mail"
-                onFocus={isShowedKeyboard}
-                onChangeText={value => setFormData(prevstate => ({ ...prevstate, email: value }))}
-                value={formData.email}
-              />
-            </View>
-            <View style={styles.passContainer}>
-              <TextInput
-                style={styles.input}
-                placeholder="Password"
-                secureTextEntry={secure}
-                onFocus={isShowedKeyboard}
-                onChangeText={value =>
-                  setFormData(prevstate => ({ ...prevstate, password: value }))
-                }
-                value={formData.password}
-              />
-              <TouchableOpacity
-                style={styles.togglePwdIcon}
-                onPress={() => setSecure(prev => !prev)}
-              >
-                {secure ? (
-                  <Icon name="eye-outline" color="#1B4371" size={25} />
-                ) : (
-                  <Icon name="eye-off-outline" color="#1B4371" size={25} />
-                )}
-              </TouchableOpacity>
-            </View>
-            <TouchableOpacity
-              style={styles.formBtn}
-              onPress={() => {
-                hideKeyboard();
-                setFormData(initialState);
-              }}
-            >
-              <Text style={styles.btnText}>SIGN IN</Text>
-            </TouchableOpacity>
-          </View>
-          {/* <View> */}
-          <Text style={styles.formText}>Don't have an account? Register</Text>
-          {/* </View> */}
+    <View style={{ ...styles.formContainer, paddingBottom: isKeyboardShown ? 20 : 78 }}>
+      <Text style={styles.formTitle}>Sign In</Text>
+      <View style={styles.form}>
+        <View style={{ marginBottom: 16 }}>
+          <TextInput
+            style={styles.input}
+            placeholder="E-mail"
+            onFocus={isShowedKeyboard}
+            onChangeText={value => setFormData(prevstate => ({ ...prevstate, email: value }))}
+            value={formData.email}
+          />
         </View>
-      </KeyboardAvoidingView>
-    </TouchableWithoutFeedback>
+        <View style={styles.passContainer}>
+          <TextInput
+            style={styles.input}
+            placeholder="Password"
+            secureTextEntry={secure}
+            onFocus={isShowedKeyboard}
+            onChangeText={value => setFormData(prevstate => ({ ...prevstate, password: value }))}
+            value={formData.password}
+          />
+          <TouchableOpacity style={styles.togglePwdIcon} onPress={() => setSecure(prev => !prev)}>
+            {secure ? (
+              <Icon name="eye-outline" color="#1B4371" size={25} />
+            ) : (
+              <Icon name="eye-off-outline" color="#1B4371" size={25} />
+            )}
+          </TouchableOpacity>
+        </View>
+        <TouchableOpacity
+          style={styles.formBtn}
+          onPress={() => {
+            hideKeyboard();
+            setFormData(initialState);
+          }}
+        >
+          <Text style={styles.btnText}>SIGN IN</Text>
+        </TouchableOpacity>
+      </View>
+      {/* <View> */}
+      <Text style={styles.formText}>Don't have an account? Register</Text>
+      {/* </View> */}
+    </View>
   );
 };
 
@@ -118,22 +95,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontFamily: 'Roboto-Regular',
     fontWeight: '500',
-  },
-
-  avatar: {
-    position: 'absolute',
-    top: 0,
-    backgroundColor: '#F6F6F6',
-    borderRadius: 16,
-    width: 120,
-    height: 120,
-    transform: [{ translateY: -60 }, { translateX: Dimensions.get('window').width * 0.5 - 60 }],
-  },
-
-  addIconAvatar: {
-    position: 'absolute',
-    right: -14,
-    bottom: 14,
   },
 
   form: {

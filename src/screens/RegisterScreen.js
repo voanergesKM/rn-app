@@ -6,9 +6,7 @@ import {
   TouchableOpacity,
   TextInput,
   Dimensions,
-  KeyboardAvoidingView,
   Keyboard,
-  TouchableWithoutFeedback,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -18,17 +16,16 @@ const initialState = {
   password: '',
 };
 
-export const Register = () => {
+export const Register = ({ isKeyboardShown, toggleKeyboard }) => {
   const [secure, setSecure] = useState(true);
-  const [isKeyboardShown, setIsKeyboardShown] = useState(false);
   const [formData, setFormData] = useState(initialState);
 
   const isShowedKeyboard = () => {
-    setIsKeyboardShown(true);
+    toggleKeyboard(true);
   };
 
   const hideKeyboard = () => {
-    setIsKeyboardShown(false);
+    toggleKeyboard(false);
     Keyboard.dismiss();
   };
 
@@ -41,75 +38,63 @@ export const Register = () => {
   }, []);
 
   return (
-    <TouchableWithoutFeedback onPress={hideKeyboard}>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={styles.inner}
-      >
-        <View style={{ ...styles.formContainer, paddingBottom: isKeyboardShown ? 20 : 78 }}>
-          <Text style={styles.formTitle}>Register</Text>
-          <View style={styles.avatar}>
-            <TouchableOpacity style={styles.addIconAvatar}>
-              <Icon name="add-circle-outline" color="#FF6C00" size={25} />
-            </TouchableOpacity>
-          </View>
-          <View style={styles.form}>
-            <View style={{ marginBottom: 16 }}>
-              <TextInput
-                style={styles.input}
-                placeholder="Login"
-                onFocus={isShowedKeyboard}
-                onChangeText={value => setFormData(prevstate => ({ ...prevstate, login: value }))}
-                value={formData.login}
-              />
-            </View>
-            <View style={{ marginBottom: 16 }}>
-              <TextInput
-                style={styles.input}
-                placeholder="E-mail"
-                onFocus={isShowedKeyboard}
-                onChangeText={value => setFormData(prevstate => ({ ...prevstate, email: value }))}
-                value={formData.email}
-              />
-            </View>
-            <View style={styles.passContainer}>
-              <TextInput
-                style={styles.input}
-                placeholder="Password"
-                secureTextEntry={secure}
-                onFocus={isShowedKeyboard}
-                onChangeText={value =>
-                  setFormData(prevstate => ({ ...prevstate, password: value }))
-                }
-                value={formData.password}
-              />
-              <TouchableOpacity
-                style={styles.togglePwdIcon}
-                onPress={() => setSecure(prev => !prev)}
-              >
-                {secure ? (
-                  <Icon name="eye-outline" color="#1B4371" size={25} />
-                ) : (
-                  <Icon name="eye-off-outline" color="#1B4371" size={25} />
-                )}
-              </TouchableOpacity>
-            </View>
-            <TouchableOpacity
-              style={styles.formBtn}
-              onPress={() => {
-                hideKeyboard();
-                setFormData(initialState);
-              }}
-            >
-              <Text style={styles.btnText}>Sign In</Text>
-            </TouchableOpacity>
-          </View>
-          {/* <View> */}
-          <Text style={styles.formText}>Have an account? LogIn</Text>
-          {/* </View> */}
+    <View style={{ ...styles.formContainer, paddingBottom: isKeyboardShown ? 20 : 78 }}>
+      <Text style={styles.formTitle}>Register</Text>
+      <View style={styles.avatar}>
+        <TouchableOpacity style={styles.addIconAvatar}>
+          <Icon name="add-circle-outline" color="#FF6C00" size={25} />
+        </TouchableOpacity>
+      </View>
+      <View style={styles.form}>
+        <View style={{ marginBottom: 16 }}>
+          <TextInput
+            style={styles.input}
+            placeholder="Login"
+            onFocus={isShowedKeyboard}
+            onChangeText={value => setFormData(prevstate => ({ ...prevstate, login: value }))}
+            value={formData.login}
+          />
         </View>
-      </KeyboardAvoidingView>
-    </TouchableWithoutFeedback>
+        <View style={{ marginBottom: 16 }}>
+          <TextInput
+            style={styles.input}
+            placeholder="E-mail"
+            onFocus={isShowedKeyboard}
+            onChangeText={value => setFormData(prevstate => ({ ...prevstate, email: value }))}
+            value={formData.email}
+          />
+        </View>
+        <View style={styles.passContainer}>
+          <TextInput
+            style={styles.input}
+            placeholder="Password"
+            secureTextEntry={secure}
+            onFocus={isShowedKeyboard}
+            onChangeText={value => setFormData(prevstate => ({ ...prevstate, password: value }))}
+            value={formData.password}
+          />
+          <TouchableOpacity style={styles.togglePwdIcon} onPress={() => setSecure(prev => !prev)}>
+            {secure ? (
+              <Icon name="eye-outline" color="#1B4371" size={25} />
+            ) : (
+              <Icon name="eye-off-outline" color="#1B4371" size={25} />
+            )}
+          </TouchableOpacity>
+        </View>
+        <TouchableOpacity
+          style={styles.formBtn}
+          onPress={() => {
+            hideKeyboard();
+            setFormData(initialState);
+          }}
+        >
+          <Text style={styles.btnText}>SIGN UP</Text>
+        </TouchableOpacity>
+      </View>
+      {/* <View> */}
+      <Text style={styles.formText}>Have an account? LogIn</Text>
+      {/* </View> */}
+    </View>
   );
 };
 
@@ -118,7 +103,7 @@ const styles = StyleSheet.create({
     position: 'relative',
     width: '100%',
     justifyContent: 'center',
-    paddingTop: 32,
+    paddingTop: 92,
     backgroundColor: '#FFFFFF',
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
@@ -200,5 +185,6 @@ const styles = StyleSheet.create({
   inner: {
     flex: 1,
     justifyContent: 'flex-end',
+    fontSize: 16,
   },
 });

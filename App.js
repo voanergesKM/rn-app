@@ -1,11 +1,21 @@
-import { useCallback } from 'react';
-import { StyleSheet, View, ImageBackground, Platform, KeyboardAvoidingView } from 'react-native';
+import { useCallback, useState } from 'react';
+import {
+  StyleSheet,
+  View,
+  ImageBackground,
+  Platform,
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
+  Keyboard,
+} from 'react-native';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { Login } from './src/screens/LoginScreen';
 import { Register } from './src/screens/RegisterScreen';
 
 export default function App() {
+  const [isKeyboardShown, setIsKeyboardShown] = useState(false);
+
   const [fontsLoaded] = useFonts({
     'Roboto-Regular': require('./assets/fonts/Roboto-Regular.ttf'),
     'Roboto-Italic': require('./assets/fonts/Roboto-Italic.ttf'),
@@ -21,11 +31,23 @@ export default function App() {
     return null;
   }
 
+  const hideKeyboard = () => {
+    setIsKeyboardShown(false);
+    Keyboard.dismiss();
+  };
+
   return (
     <View style={styles.container} onLayout={onLayoutRootView}>
       <ImageBackground style={styles.image} source={require('./assets/images/mainBgImage.jpg')}>
-        {/* <Register /> */}
-        <Login />
+        <TouchableWithoutFeedback onPress={hideKeyboard}>
+          <KeyboardAvoidingView
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            style={styles.inner}
+          >
+            {/* <Register isKeyboardShown={isKeyboardShown} toggleKeyboard={setIsKeyboardShown} /> */}
+            <Login isKeyboardShown={isKeyboardShown} toggleKeyboard={setIsKeyboardShown} />
+          </KeyboardAvoidingView>
+        </TouchableWithoutFeedback>
       </ImageBackground>
     </View>
   );
@@ -44,7 +66,11 @@ const styles = StyleSheet.create({
   image: {
     flex: 1,
     resizeMode: 'cover',
-    // justifyContent: 'flex-end',
-    // alignItems: 'center',
+  },
+
+  inner: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    fontSize: 16,
   },
 });
