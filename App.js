@@ -44,8 +44,8 @@ export default function App() {
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
             style={styles.inner}
           >
-            {/* <Register isKeyboardShown={isKeyboardShown} toggleKeyboard={setIsKeyboardShown} /> */}
-            <Login isKeyboardShown={isKeyboardShown} toggleKeyboard={setIsKeyboardShown} />
+            <Register isKeyboardShown={isKeyboardShown} toggleKeyboard={setIsKeyboardShown} />
+            {/* <Login isKeyboardShown={isKeyboardShown} toggleKeyboard={setIsKeyboardShown} /> */}
           </KeyboardAvoidingView>
         </TouchableWithoutFeedback>
       </ImageBackground>
