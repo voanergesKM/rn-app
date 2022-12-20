@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, Keyboard } from 'react-native';
+import { Keyboard, Alert } from 'react-native';
 import { AuthForm } from '../components/AuthForm/AuthForm';
+import { Container, FormText, Title } from './AuthScreen.styled';
 
 const initialState = {
   email: '',
@@ -20,6 +21,10 @@ export const Login = ({ isKeyboardShown, toggleKeyboard }) => {
   };
 
   const onSubmit = () => {
+    if (!formData.email || !formData.password) {
+      return Alert.alert('Error', 'Please, enter your email or password');
+    }
+
     console.log(formData);
     hideKeyboard();
     setFormData(initialState);
@@ -34,8 +39,8 @@ export const Login = ({ isKeyboardShown, toggleKeyboard }) => {
   }, []);
 
   return (
-    <View style={{ ...styles.formContainer, paddingBottom: isKeyboardShown ? 20 : 78 }}>
-      <Text style={styles.formTitle}>Sign In</Text>
+    <Container isKeyboardShown={isKeyboardShown}>
+      <Title>Sign In</Title>
       <AuthForm
         toggleKeyboard={toggleKeyboard}
         isShowedKeyboard={isShowedKeyboard}
@@ -45,36 +50,7 @@ export const Login = ({ isKeyboardShown, toggleKeyboard }) => {
         onSubmit={onSubmit}
       />
 
-      <Text style={styles.formText}>Don't have an account? Register</Text>
-    </View>
+      <FormText>Don't have an account? Register</FormText>
+    </Container>
   );
 };
-
-const styles = StyleSheet.create({
-  formContainer: {
-    position: 'relative',
-    width: '100%',
-    justifyContent: 'center',
-    paddingTop: 32,
-    backgroundColor: '#FFFFFF',
-    borderTopLeftRadius: 25,
-    borderTopRightRadius: 25,
-  },
-
-  formTitle: {
-    fontSize: 30,
-    lineHeight: 35,
-    color: '#212121',
-    marginBottom: 33,
-    textAlign: 'center',
-    fontFamily: 'Roboto-Regular',
-    fontWeight: '500',
-  },
-
-  formText: {
-    textAlign: 'center',
-    color: '#1B4371',
-    fontFamily: 'Roboto-Regular',
-    fontSize: 16,
-  },
-});

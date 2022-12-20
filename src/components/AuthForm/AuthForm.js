@@ -24,7 +24,6 @@ export const AuthForm = ({
       {register && (
         <View style={{ marginBottom: 16 }}>
           <Input
-            style={styles.input}
             placeholder="Login"
             onFocus={isShowedKeyboard}
             onChangeText={value => setFormData(prevstate => ({ ...prevstate, login: value }))}
