@@ -6,7 +6,8 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "postinstall": "rndebugger-open"
   },
   "dependencies": {
     "@expo/webpack-config": "^0.17.2",
@@ -18,10 +19,12 @@
     "react-dom": "18.1.0",
     "react-native": "0.70.5",
     "react-native-vector-icons": "^9.2.0",
-    "react-native-web": "~0.18.9"
+    "react-native-web": "~0.18.9",
+    "styled-components": "^5.3.6"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.9"
+    "@babel/core": "^7.12.9",
+    "react-native-debugger-open": "^0.3.25"
   },
   "private": true
 }

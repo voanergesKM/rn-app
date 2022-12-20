@@ -1,6 +1,5 @@
 import { useCallback, useState } from 'react';
 import {
-  StyleSheet,
   View,
   ImageBackground,
   Platform,
@@ -12,6 +11,7 @@ import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { Login } from './src/screens/LoginScreen';
 import { Register } from './src/screens/RegisterScreen';
+import { styles } from './src/components/AppPage.styled';
 
 export default function App() {
   const [isKeyboardShown, setIsKeyboardShown] = useState(false);
@@ -52,25 +52,3 @@ export default function App() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-
-  text: {
-    color: 'tomato',
-  },
-
-  image: {
-    flex: 1,
-    resizeMode: 'cover',
-  },
-
-  inner: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    fontSize: 16,
-  },
-});

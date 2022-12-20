@@ -3,7 +3,6 @@ import { StyleSheet, Text, View, TouchableOpacity, TextInput, Keyboard } from 'r
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const initialState = {
-  login: '',
   email: '',
   password: '',
 };
@@ -19,6 +18,11 @@ export const Login = ({ isKeyboardShown, toggleKeyboard }) => {
   const hideKeyboard = () => {
     toggleKeyboard(false);
     Keyboard.dismiss();
+  };
+
+  const onSubmit = () => {
+    hideKeyboard();
+    setFormData(initialState);
   };
 
   useEffect(() => {
@@ -59,13 +63,7 @@ export const Login = ({ isKeyboardShown, toggleKeyboard }) => {
             )}
           </TouchableOpacity>
         </View>
-        <TouchableOpacity
-          style={styles.formBtn}
-          onPress={() => {
-            hideKeyboard();
-            setFormData(initialState);
-          }}
-        >
+        <TouchableOpacity style={styles.formBtn} onPress={onSubmit}>
           <Text style={styles.btnText}>SIGN IN</Text>
         </TouchableOpacity>
       </View>
