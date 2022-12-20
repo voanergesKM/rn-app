@@ -181,10 +181,4 @@ const styles = StyleSheet.create({
     fontFamily: 'Roboto-Regular',
     fontSize: 16,
   },
-
-  inner: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    fontSize: 16,
-  },
 });
