@@ -1,8 +1,15 @@
 import { useEffect, useState } from 'react';
-import { Keyboard, Alert } from 'react-native';
+import {
+  Keyboard,
+  Alert,
+  TouchableWithoutFeedback,
+  KeyboardAvoidingView,
+  ImageBackground,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { AuthForm } from '../components/AuthForm/AuthForm';
 import { Avatar, AvatarIcon, Container, FormText, styles, Title } from './AuthScreen.styled';
+import { style } from '../components/AppPage.styled';
 
 const initialState = {
   login: '',
@@ -10,20 +17,23 @@ const initialState = {
   password: '',
 };
 
-export const Register = ({ isKeyboardShown, toggleKeyboard }) => {
+export const Register = () => {
   const [formData, setFormData] = useState(initialState);
+  const [isKeyboardShown, setIsKeyboardShown] = useState(false);
 
   const isShowedKeyboard = () => {
-    toggleKeyboard(true);
+    setIsKeyboardShown(true);
   };
 
   const hideKeyboard = () => {
-    toggleKeyboard(false);
+    setIsKeyboardShown(false);
     Keyboard.dismiss();
   };
 
   const onSubmit = () => {
-    if (!formData.login || !formData.email || !formData.password) {
+    const { login, email, password } = formData;
+
+    if (!login || !email || !password) {
       return Alert.alert('Error', "Fields can't be empty");
     }
 
@@ -41,23 +51,31 @@ export const Register = ({ isKeyboardShown, toggleKeyboard }) => {
   }, []);
 
   return (
-    <Container register isKeyboardShown={isKeyboardShown}>
-      <Title>Register</Title>
-      <Avatar style={styles.avatar}>
-        <AvatarIcon>
-          <Icon name="add-circle-outline" color="#FF6C00" size={25} />
-        </AvatarIcon>
-      </Avatar>
-      <AuthForm
-        toggleKeyboard={toggleKeyboard}
-        isShowedKeyboard={isShowedKeyboard}
-        initialState={initialState}
-        formData={formData}
-        setFormData={setFormData}
-        onSubmit={onSubmit}
-        register
-      />
-      <FormText>Have an account? LogIn</FormText>
-    </Container>
+    <ImageBackground style={style.image} source={require('../../assets/images/mainBgImage.jpg')}>
+      <TouchableWithoutFeedback onPress={hideKeyboard}>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          style={style.inner}
+        >
+          <Container register isKeyboardShown={isKeyboardShown}>
+            <Title>Register</Title>
+            <Avatar style={styles.avatar}>
+              <AvatarIcon>
+                <Icon name="add-circle-outline" color="#FF6C00" size={25} />
+              </AvatarIcon>
+            </Avatar>
+            <AuthForm
+              isShowedKeyboard={isShowedKeyboard}
+              initialState={initialState}
+              formData={formData}
+              setFormData={setFormData}
+              onSubmit={onSubmit}
+              register
+            />
+            <FormText>Have an account? LogIn</FormText>
+          </Container>
+        </KeyboardAvoidingView>
+      </TouchableWithoutFeedback>
+    </ImageBackground>
   );
 };

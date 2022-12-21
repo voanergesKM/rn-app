@@ -1,21 +1,16 @@
-import { useCallback, useState } from 'react';
-import {
-  View,
-  ImageBackground,
-  Platform,
-  KeyboardAvoidingView,
-  TouchableWithoutFeedback,
-  Keyboard,
-} from 'react-native';
+import { useCallback } from 'react';
+import { View, ImageBackground } from 'react-native';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Login } from './src/screens/LoginScreen';
 import { Register } from './src/screens/RegisterScreen';
-import { styles } from './src/components/AppPage.styled';
+import { style } from './src/components/AppPage.styled';
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
-  const [isKeyboardShown, setIsKeyboardShown] = useState(false);
-
   const [fontsLoaded] = useFonts({
     'Roboto-Regular': require('./assets/fonts/Roboto-Regular.ttf'),
     'Roboto-Italic': require('./assets/fonts/Roboto-Italic.ttf'),
@@ -31,23 +26,15 @@ export default function App() {
     return null;
   }
 
-  const hideKeyboard = () => {
-    setIsKeyboardShown(false);
-    Keyboard.dismiss();
-  };
-
   return (
-    <View style={styles.container} onLayout={onLayoutRootView}>
-      <ImageBackground style={styles.image} source={require('./assets/images/mainBgImage.jpg')}>
-        <TouchableWithoutFeedback onPress={hideKeyboard}>
-          <KeyboardAvoidingView
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-            style={styles.inner}
-          >
-            <Register isKeyboardShown={isKeyboardShown} toggleKeyboard={setIsKeyboardShown} />
-            {/* <Login isKeyboardShown={isKeyboardShown} toggleKeyboard={setIsKeyboardShown} /> */}
-          </KeyboardAvoidingView>
-        </TouchableWithoutFeedback>
+    <View style={style.container} onLayout={onLayoutRootView}>
+      <ImageBackground style={style.image} source={require('./assets/images/mainBgImage.jpg')}>
+        <NavigationContainer>
+          <Stack.Navigator>
+            <Stack.Screen name="Register" component={Register} />
+            <Stack.Screen name="Login" component={Login} />
+          </Stack.Navigator>
+        </NavigationContainer>
       </ImageBackground>
     </View>
   );

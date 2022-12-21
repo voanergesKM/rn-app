@@ -1,22 +1,30 @@
 import { useEffect, useState } from 'react';
-import { Keyboard, Alert } from 'react-native';
+import {
+  Keyboard,
+  Alert,
+  TouchableWithoutFeedback,
+  KeyboardAvoidingView,
+  ImageBackground,
+} from 'react-native';
 import { AuthForm } from '../components/AuthForm/AuthForm';
 import { Container, FormText, Title } from './AuthScreen.styled';
+import { style } from '../components/AppPage.styled';
 
 const initialState = {
   email: '',
   password: '',
 };
 
-export const Login = ({ isKeyboardShown, toggleKeyboard }) => {
+export const Login = () => {
   const [formData, setFormData] = useState(initialState);
+  const [isKeyboardShown, setIsKeyboardShown] = useState(false);
 
   const isShowedKeyboard = () => {
-    toggleKeyboard(true);
+    setIsKeyboardShown(true);
   };
 
   const hideKeyboard = () => {
-    toggleKeyboard(false);
+    setIsKeyboardShown(false);
     Keyboard.dismiss();
   };
 
@@ -39,18 +47,26 @@ export const Login = ({ isKeyboardShown, toggleKeyboard }) => {
   }, []);
 
   return (
-    <Container isKeyboardShown={isKeyboardShown}>
-      <Title>Sign In</Title>
-      <AuthForm
-        toggleKeyboard={toggleKeyboard}
-        isShowedKeyboard={isShowedKeyboard}
-        initialState={initialState}
-        formData={formData}
-        setFormData={setFormData}
-        onSubmit={onSubmit}
-      />
+    <ImageBackground style={style.image} source={require('../../assets/images/mainBgImage.jpg')}>
+      <TouchableWithoutFeedback onPress={hideKeyboard}>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          style={style.inner}
+        >
+          <Container isKeyboardShown={isKeyboardShown}>
+            <Title>Sign In</Title>
+            <AuthForm
+              isShowedKeyboard={isShowedKeyboard}
+              initialState={initialState}
+              formData={formData}
+              setFormData={setFormData}
+              onSubmit={onSubmit}
+            />
 
-      <FormText>Don't have an account? Register</FormText>
-    </Container>
+            <FormText>Don't have an account? Register</FormText>
+          </Container>
+        </KeyboardAvoidingView>
+      </TouchableWithoutFeedback>
+    </ImageBackground>
   );
 };
