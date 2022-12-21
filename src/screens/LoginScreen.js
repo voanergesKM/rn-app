@@ -5,6 +5,7 @@ import {
   TouchableWithoutFeedback,
   KeyboardAvoidingView,
   ImageBackground,
+  TouchableOpacity,
 } from 'react-native';
 import { AuthForm } from '../components/AuthForm/AuthForm';
 import { Container, FormText, Title } from './AuthScreen.styled';
@@ -15,7 +16,7 @@ const initialState = {
   password: '',
 };
 
-export const Login = () => {
+export const Login = ({ navigation }) => {
   const [formData, setFormData] = useState(initialState);
   const [isKeyboardShown, setIsKeyboardShown] = useState(false);
 
@@ -62,8 +63,9 @@ export const Login = () => {
               setFormData={setFormData}
               onSubmit={onSubmit}
             />
-
-            <FormText>Don't have an account? Register</FormText>
+            <TouchableOpacity onPress={() => navigation.navigate('Register')}>
+              <FormText>Don't have an account? Register</FormText>
+            </TouchableOpacity>
           </Container>
         </KeyboardAvoidingView>
       </TouchableWithoutFeedback>
