@@ -8,9 +8,9 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { AuthForm } from '../components/AuthForm/AuthForm';
 import { Avatar, AvatarIcon, Container, FormText, styles, Title } from './AuthScreen.styled';
-import { style } from '../components/AppPage.styled';
+import { style } from '../../components/AppPage.styled';
+import { AuthForm } from '../../components/AuthForm/AuthForm';
 
 const initialState = {
   login: '',
@@ -53,7 +53,7 @@ export const Register = ({ navigation }) => {
   }, []);
 
   return (
-    <ImageBackground style={style.image} source={require('../../assets/images/mainBgImage.jpg')}>
+    <ImageBackground style={style.image} source={require('../../../assets/images/mainBgImage.jpg')}>
       <TouchableWithoutFeedback onPress={hideKeyboard}>
         <KeyboardAvoidingView
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}

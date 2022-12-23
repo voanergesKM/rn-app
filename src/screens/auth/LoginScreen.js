@@ -7,9 +7,9 @@ import {
   ImageBackground,
   TouchableOpacity,
 } from 'react-native';
-import { AuthForm } from '../components/AuthForm/AuthForm';
 import { Container, FormText, Title } from './AuthScreen.styled';
-import { style } from '../components/AppPage.styled';
+import { style } from '../../components/AppPage.styled';
+import { AuthForm } from '../../components/AuthForm/AuthForm';
 
 const initialState = {
   email: '',
@@ -48,7 +48,7 @@ export const Login = ({ navigation }) => {
   }, []);
 
   return (
-    <ImageBackground style={style.image} source={require('../../assets/images/mainBgImage.jpg')}>
+    <ImageBackground style={style.image} source={require('../../../assets/images/mainBgImage.jpg')}>
       <TouchableWithoutFeedback onPress={hideKeyboard}>
         <KeyboardAvoidingView
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}

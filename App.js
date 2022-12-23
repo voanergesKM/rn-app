@@ -4,8 +4,8 @@ import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Login } from './src/screens/LoginScreen';
-import { Register } from './src/screens/RegisterScreen';
+import { Login, Register } from './src/screens/auth';
+// import { Register } from './src/screens/RegisterScreen';
 import { style } from './src/components/AppPage.styled';
 
 const Stack = createNativeStackNavigator();
