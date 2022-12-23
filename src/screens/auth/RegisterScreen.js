@@ -19,7 +19,6 @@ const initialState = {
 };
 
 export const Register = ({ navigation }) => {
-  console.log('Register : navigation', navigation);
   const [formData, setFormData] = useState(initialState);
   const [isKeyboardShown, setIsKeyboardShown] = useState(false);
 
